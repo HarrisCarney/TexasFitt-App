@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View, ScrollView, StyleSheet } from 'react-native';
+import { firebaseDB } from '../api'
 
 import ScreenHeader from '../components/ScreenHeader';
 
@@ -7,6 +8,14 @@ export default class ClassScreen extends React.Component {
   static navigationOptions = {
     header: null
   };
+
+  componentDidMount() {
+    firebaseDB.collection('classes').get().then(function(doc) {
+      doc.forEach((classs) => {
+        console.log(classs.data().name);
+      });
+    });
+  }
 
   render() {
     return (
