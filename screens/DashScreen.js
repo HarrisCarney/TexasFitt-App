@@ -28,11 +28,7 @@ export default class DashScreen extends React.Component {
           <Image style={styles.profilePic} source={require('../assets/images/user.png')} />
         </View>
 
-         <Button
-          title="Test"
-          color="green"
-          onPress={() => this.props.navigation.navigate('ClassStack')}
-        />
+        
       </View>
     );
   }

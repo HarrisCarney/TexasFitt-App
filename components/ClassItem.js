@@ -3,14 +3,17 @@ import {
   StyleSheet,
   Text,
   View,
+  TouchableHighlight
 } from 'react-native';
 
 export default class ClassItem extends React.Component {
   render() {
     return (
-      <View style={styles.header}>
-        <Text {...this.props} style={this.props.style, styles.title} />
-      </View>
+      <TouchableHighlight>
+        <View>
+          <Text {...this.props} />
+        </View>
+      </TouchableHighlight>
     );
   }
 }
