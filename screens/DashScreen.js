@@ -24,10 +24,9 @@ export default class DashScreen extends React.Component {
         <ScreenHeader>Dashboard</ScreenHeader>
 
         <View style={styles.userCard}>
-          <Text style={styles.userName}>Good morning, Harris</Text>
+          <Text style={styles.userName}>Good Morning, Harris</Text>
           <Image style={styles.profilePic} source={require('../assets/images/user.png')} />
         </View>
-
         
       </View>
     );
@@ -108,7 +107,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end'
   },
   welcome: {
-    fontSize: 40,
+    fontSize: 80,
     fontFamily: 'sofia-bold',
     marginLeft: 20
   },

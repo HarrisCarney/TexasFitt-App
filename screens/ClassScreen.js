@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, ScrollView, StyleSheet, ListView } from 'react-native';
+import { Text, View, ScrollView, StyleSheet, ListView, SectionList } from 'react-native';
 import { firebaseDB } from '../api'
 
 import ScreenHeader from '../components/ScreenHeader';
@@ -13,29 +13,29 @@ export default class ClassScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataSource: new ListView.DataSource({
-        rowHasChanged: (row1, row2) => row1 !== row2,
-      }),
+      classList: []
     };
   };
 
   getClasses() {
-    firebaseDB.collection('test2').get().then(function(doc) {
-      var classList = [];
+    firebaseDB.collection('classSchedule').orderBy("dayNumber", "asc").get().then(function(doc) {
+      var what = [];
       doc.forEach((classDay) => {
+        var test = { title: classDay.data().day, data: [] };
         classDay.data().classes.forEach((classItem) => {
-          classList.push({
+          test.data.push({
             name: classItem.name,
             time: classItem.time,
             id: classItem.classID
           });
         })
+        what.push(test);
       });
       this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(classList)
-      }, () => {
-        console.debug('✓ State successfully set!')
-      });
+          classList: what
+        }, () => {
+          console.log(this.state.classList);
+        });
     }.bind(this));
   }
 
@@ -49,9 +49,15 @@ export default class ClassScreen extends React.Component {
         <ScreenHeader>Classes</ScreenHeader>
 
         <ScrollView>
-          <ListView
-          dataSource={this.state.dataSource}
-          renderRow={this.renderItem.bind(this)}/>
+          <SectionList
+            style={styles.classList}
+            renderItem={({item, index, section}) => this.renderItem(item)}
+            renderSectionHeader={({section: {title}}) => (
+              <Text style={styles.header}>{title}</Text>
+            )}
+            sections={this.state.classList}
+            keyExtractor={(item, index) => item + index}
+          />
         </ScrollView>
       </View>
     );
@@ -59,7 +65,7 @@ export default class ClassScreen extends React.Component {
 
   renderItem(item) {
     return (
-      <ClassItem>{item.name} {item.time}</ClassItem>
+      <ClassItem time={item.time} name={item.name}/>
     );
   }
 }
@@ -75,5 +81,16 @@ const styles = StyleSheet.create({
     height: 80,
     backgroundColor: '#FFBE41',
     color: '#ffffff'
+  },
+  header: {
+    fontFamily: 'sofia-semi',
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 20,
+    marginLeft: 20,
+    marginBottom: 10
+  },
+  classList: {
+    marginTop: 0
   }
 });
