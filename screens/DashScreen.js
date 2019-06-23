@@ -26,8 +26,7 @@ export default class DashScreen extends React.Component {
         <View style={styles.userCard}>
           <Text style={styles.userName}>Good Morning, Harris</Text>
           <Image style={styles.profilePic} source={require('../assets/images/user.png')} />
-        </View>
-        
+        </View>  
       </View>
     );
   }
