@@ -13,29 +13,26 @@ export default class ClassScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      classList: []
+      classList: [],
+      name: this.props.navigation.state.params.name,
+      time: this.props.navigation.state.params.time,
+      id: this.props.navigation.state.params.id,
     };
   };
 
   getClasses() {
-    firebaseDB.collection('classSchedule').orderBy("dayNumber", "asc").get().then(function(doc) {
-      var what = [];
+    firebaseDB.collection('classes').where("classID", "==", this.state.id).get().then(function(doc) {
+      var test = {};
       doc.forEach((classDay) => {
-        var test = { title: classDay.data().day, data: [] };
-        classDay.data().classes.forEach((classItem) => {
-          test.data.push({
-            name: classItem.name,
-            time: classItem.time,
-            id: classItem.classID
-          });
-        })
-        what.push(test);
+        test = { description: classDay.data().desc, instructor: classDay.data().instructor };
       });
       this.setState({
-          classList: what
-        }, () => {
-          console.log(this.state.classList);
-        });
+        description: test.description,
+        instructor: test.instructor
+      }, () => {
+        console.log(this.state.description);
+        console.log(this.state.instructor);
+      });
     }.bind(this));
   }
 
@@ -46,26 +43,19 @@ export default class ClassScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <ScreenHeader style={{'backgroundColor': '#0374F7'}}>Classes</ScreenHeader>
+        <ScreenHeader>{this.state.name}</ScreenHeader>
 
-        <ScrollView>
-          <SectionList
-            style={styles.classList}
-            renderItem={({item, index, section}) => this.renderItem(item)}
-            renderSectionHeader={({section: {title}}) => (
-              <Text style={styles.header}>{title}</Text>
-            )}
-            sections={this.state.classList}
-            keyExtractor={(item, index) => item + index}
-          />
-        </ScrollView>
+        <View>
+          <Text>{this.state.instructor}</Text>
+          <Text>{this.state.description}</Text>
+        </View>
       </View>
     );
   }
 
   renderItem(item) {
     return (
-      <ClassItem navigation={this.props.navigation} time={item.time} name={item.name} id={item.id}/>
+      <ClassItem navigation={this.props.navigation} time={item.time} name={item.name}/>
     );
   }
 }

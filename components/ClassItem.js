@@ -6,10 +6,12 @@ import {
   TouchableHighlight
 } from 'react-native';
 
+import DashScreen from '../screens/DashScreen';
+
 export default class ClassItem extends React.Component {
   render() {
     return (
-      <TouchableHighlight>
+      <TouchableHighlight onPress={ () => this.props.navigation.navigate('ClassDetails', {name: this.props.name, time: this.props.time, id: this.props.id})}>
         <View style={styles.classCard}>
           <Text style={[styles.classText, styles.classTime]}>{this.props.time}</Text>
           <Text style={[styles.classText, styles.className]}> {this.props.name}</Text>
@@ -25,12 +27,12 @@ const styles = StyleSheet.create({
     marginRight: 20,
     marginBottom: 4,
     height: 80,
-    backgroundColor: '#FFBE41',
+    backgroundColor: '#fdfdfd',
     flexDirection: 'row',
     alignItems: 'center',
   },
   classText: {
-    color: '#fff',
+    color: '#333',
     fontFamily: 'sofia-semi',
     fontSize: 18,
     marginLeft: 20

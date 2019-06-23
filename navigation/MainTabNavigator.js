@@ -7,6 +7,7 @@ import Colors from '../constants/Colors';
 import TabBarIcon from '../components/TabBarIcon';
 import DashScreen from '../screens/DashScreen';
 import ClassScreen from '../screens/ClassScreen';
+import ClassDetailScreen from '../screens/ClassDetailScreen';
 import NewsScreen from '../screens/NewsScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 
@@ -34,7 +35,8 @@ DashStack.navigationOptions = {
 };
 
 const ClassStack = createStackNavigator({
-  Links: ClassScreen,
+  Classes: ClassScreen,
+  ClassDetails: ClassDetailScreen
 });
 
 ClassStack.navigationOptions = {
@@ -57,7 +59,7 @@ ClassStack.navigationOptions = {
 };
 
 const NewsStack = createStackNavigator({
-  Settings: NewsScreen,
+  News: NewsScreen,
 });
 
 NewsStack.navigationOptions = {
@@ -80,7 +82,7 @@ NewsStack.navigationOptions = {
 };
 
 const ProfileStack = createStackNavigator({
-  Settings: ProfileScreen,
+  Profile: ProfileScreen,
 });
 
 ProfileStack.navigationOptions = {
