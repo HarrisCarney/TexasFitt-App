@@ -13,7 +13,7 @@ export default class ClassScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      classList: []
+      classList: [],
     };
   };
 
@@ -32,9 +32,7 @@ export default class ClassScreen extends React.Component {
         what.push(test);
       });
       this.setState({
-          classList: what
-        }, () => {
-          console.log(this.state.classList);
+          classList: what,
         });
     }.bind(this));
   }
@@ -47,7 +45,6 @@ export default class ClassScreen extends React.Component {
     return (
       <View style={styles.container}>
         <ScreenHeader style={{'backgroundColor': '#0374F7'}}>Classes</ScreenHeader>
-
         <ScrollView>
           <SectionList
             style={styles.classList}

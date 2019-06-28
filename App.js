@@ -38,6 +38,7 @@ export default class App extends React.Component {
         require('./assets/icons/ic_news-active.png'),
         require('./assets/icons/ic_profile.png'),
         require('./assets/icons/ic_profile-active.png'),
+        require('./assets/images/classes/Zumba.png'),
       ]),
       Font.loadAsync({
         'sofia-semi': require('./assets/fonts/SofiaPro-SemiBold.ttf'),

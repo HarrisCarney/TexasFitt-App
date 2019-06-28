@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, Image, TouchableOpacity, Dimensions, ScrollView } from 'react-native';
+import { Text, View, StyleSheet, Image, TouchableOpacity, Dimensions, ScrollView, AsyncStorage } from 'react-native';
 import { firebaseDB } from '../api'
 
 import ScreenHeader from '../components/ScreenHeader';
@@ -20,24 +20,34 @@ export default class ClassScreen extends React.Component {
       name: this.props.navigation.state.params.name,
       time: this.props.navigation.state.params.time,
       id: this.props.navigation.state.params.id,
+      classInfo: {}
     };
   };
 
-  getClassDetails() {
-    console.log(this.state.time.split('pm'));
-    firebaseDB.collection('classes').where("classID", "==", this.state.id).get().then(function(doc) {
+  async getClassDetails() {
+    firebaseDB.collection('classes').where("classID", "==", this.state.id).onSnapshot(function(doc) {
       var classDetails = {};
       doc.forEach((details) => {
         classDetails = { description: details.data().desc, instructor: details.data().instructor };
       });
+      // AsyncStorage.setItem('classDetails/' + this.state.id, JSON.stringify(classDetails));
       this.setState({
-        description: classDetails.description,
-        instructor: classDetails.instructor
+        classInfo: {description: classDetails.description, instructor: classDetails.instructor }
       });
     }.bind(this));
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    // const infoStorage = await AsyncStorage.getItem('classDetails/'+this.state.id);
+    // if(infoStorage != null) {
+    //   var store = JSON.parse(infoStorage);
+    //   this.setState({
+    //     classInfo: {description: store.description, instructor: store.instructor }
+    //   });
+    // } else {
+    //   console.log('API Called')
+    //   this.getClassDetails();
+    // }
     this.getClassDetails();
   }
 
@@ -45,13 +55,14 @@ export default class ClassScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Image style={styles.classPic} source={require('../assets/images/classes/Zumba.png')} />
+        <TouchableOpacity style={styles.backButton} onPress={() => this.props.navigation.goBack()}>
+          <Image
+            style={{width: 40, height: 40}}
+            source={require('../assets/icons/ic_back.png')}
+          />
+        </TouchableOpacity>
+
         <ScrollView>
-          <TouchableOpacity style={styles.backButton} onPress={() => this.props.navigation.goBack()}>
-            <Image
-              style={{width: 40, height: 40}}
-              source={require('../assets/icons/ic_back.png')}
-            />
-          </TouchableOpacity>
           <View style={styles.classInfo}> 
             <View style={styles.timeView}>
               <Text style={styles.time}>{this.state.time.includes('am') ? this.state.time.split('am')[0] : this.state.time.split('pm')[0]}</Text>
@@ -59,10 +70,10 @@ export default class ClassScreen extends React.Component {
             </View>
             <View style={styles.classTitle}>
               <Text style={styles.name}>{this.state.name}</Text>
-              <Text style={styles.instructor}>{this.state.instructor}</Text>
+              <Text style={styles.instructor}>{this.state.classInfo.instructor}</Text>
             </View>
           </View>
-          <Text style={styles.description}>{this.state.description}</Text>
+          <Text style={styles.description}>{this.state.classInfo.description}</Text>
         </ScrollView>
       </View>
     );
