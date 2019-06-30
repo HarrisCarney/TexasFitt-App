@@ -9,7 +9,8 @@ import {
   View,
   Button
 } from 'react-native';
-import { WebBrowser } from 'expo';
+
+import * as firebase from 'firebase';
 
 import ScreenHeader from '../components/ScreenHeader';
 
@@ -18,51 +19,33 @@ export default class DashScreen extends React.Component {
       header: null,
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentUser: null
+    };
+  };
+
+  componentDidMount() {
+    const { currentUser } = firebase.auth();
+    this.setState({ currentUser });
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <ScreenHeader>Dashboard</ScreenHeader>
-
         <View style={styles.userCard}>
-          <Text style={styles.userName}>Good Morning, Harris</Text>
+          <Text style={styles.userName}>Good Morning,{"\n"}Harris</Text>
           <Image style={styles.profilePic} source={require('../assets/images/user.png')} />
         </View>  
+
+        <View style={styles.checkIn}>
+          <Text style={styles.checkInTitle}>Weekly Check-Ins</Text>
+          <Text style={styles.checkInCount}>20</Text>
+        </View>
       </View>
     );
   }
-
-  _maybeRenderDevelopmentModeWarning() {
-    if (__DEV__) {
-      const learnMoreButton = (
-        <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
-          Learn more
-        </Text>
-      );
-
-      return (
-        <Text style={styles.developmentModeText}>
-          Development mode is enabled, your app will be slower but you can use useful development
-          tools. {learnMoreButton}
-        </Text>
-      );
-    } else {
-      return (
-        <Text style={styles.developmentModeText}>
-          You are not in development mode, your app will run at full speed.
-        </Text>
-      );
-    }
-  }
-
-  _handleLearnMorePress = () => {
-    WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
-  };
-
-  _handleHelpPress = () => {
-    WebBrowser.openBrowserAsync(
-      'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
-    );
-  };
 }
 
 const styles = StyleSheet.create({
@@ -70,116 +53,47 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  checkIn: {
+    margin: 20,
+    backgroundColor: '#fefefe',
+    height: 80,
+    borderRadius: 12,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
+
+    elevation: 10,
+  },
+  checkInTitle: {
+    fontFamily: 'sofia-semi',
+    fontSize: 14,
+    color: '#333',
+
+  },
   userCard: {
     flexDirection: 'row',
-    height: 120,
-    marginTop: 20,
-    marginLeft: 20,
-    marginRight: 20,
-    borderRadius: 12,
-    backgroundColor: '#eee',
-    justifyContent: 'space-around',
-    alignItems: 'center'
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    height: 160,
   },
   userName: {
-    fontSize: 20,
-    fontFamily: 'sofia-semi'
+    fontSize: 35,
+    fontFamily: 'sofia-bold',
+    marginLeft: 20,
   },
   profilePic: {
-    borderRadius: 30,
-    width: 60,
-    height: 60,
-    alignSelf: 'center',
-  },
-  developmentModeText: {
-    marginBottom: 20,
-    color: 'rgba(0,0,0,0.4)',
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: 'center',
-  },
-  contentContainer: {
-    paddingTop: 30,
+    borderRadius: 25,
+    width: 50,
+    height: 50,
+    marginRight: 20,
+    marginBottom: 10
   },
   header: {
     height: 150,
     justifyContent: 'flex-end'
-  },
-  welcome: {
-    fontSize: 80,
-    fontFamily: 'sofia-bold',
-    marginLeft: 20
-  },
-  welcomeContainer: {
-    alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
-  },
-  welcomeImage: {
-    width: 100,
-    height: 80,
-    resizeMode: 'contain',
-    marginTop: 3,
-    marginLeft: -10,
-  },
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
-  },
-  dashScreenFilename: {
-    marginVertical: 7,
-  },
-  codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
-  },
-  codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  getStartedText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    lineHeight: 24,
-    textAlign: 'center',
-  },
-  tabBarInfoContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: { height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 20,
-      },
-    }),
-    alignItems: 'center',
-    backgroundColor: '#fbfbfb',
-    paddingVertical: 20,
-  },
-  tabBarInfoText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    textAlign: 'center',
-  },
-  navigationFilename: {
-    marginTop: 5,
-  },
-  helpContainer: {
-    marginTop: 15,
-    alignItems: 'center',
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    fontSize: 14,
-    color: '#2e78b7',
   },
 });

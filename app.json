@@ -23,7 +23,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "com.harriscarney.texasfitt",
+      "supportsTablet": false
+    },
+    "android": {
+      "package": "com.harriscarney.texasfitt"
     }
   }
 }

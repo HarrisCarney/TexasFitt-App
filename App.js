@@ -30,6 +30,7 @@ export default class App extends React.Component {
   _loadResourcesAsync = async () => {
     return Promise.all([
       Asset.loadAsync([
+        require('./assets/images/tf_logo.png'),
         require('./assets/icons/ic_dash.png'),
         require('./assets/icons/ic_dash-active.png'),
         require('./assets/icons/ic_classes.png'),
@@ -38,6 +39,7 @@ export default class App extends React.Component {
         require('./assets/icons/ic_news-active.png'),
         require('./assets/icons/ic_profile.png'),
         require('./assets/icons/ic_profile-active.png'),
+        require('./assets/icons/ic_back.png'),
         require('./assets/images/classes/Zumba.png'),
       ]),
       Font.loadAsync({

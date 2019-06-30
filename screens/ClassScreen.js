@@ -75,13 +75,13 @@ const styles = StyleSheet.create({
   class: {
     marginLeft: 20,
     marginRight: 20,
-    height: 80,
-    backgroundColor: '#FFBE41',
+    height: 65,
+    backgroundColor: '#fcfcfc',
     color: '#ffffff'
   },
   header: {
     fontFamily: 'sofia-semi',
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 'bold',
     marginTop: 20,
     marginLeft: 20,
