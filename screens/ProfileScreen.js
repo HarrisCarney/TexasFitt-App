@@ -12,7 +12,6 @@ export default class ProfileScreen extends React.Component {
   signOutUser = async () => {
     try {
         await firebase.auth().signOut();
-        navigate('Auth');
     } catch (e) {
         console.log(e);
     }

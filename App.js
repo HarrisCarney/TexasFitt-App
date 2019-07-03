@@ -40,11 +40,15 @@ export default class App extends React.Component {
         require('./assets/icons/ic_profile.png'),
         require('./assets/icons/ic_profile-active.png'),
         require('./assets/icons/ic_back.png'),
+        // Delete these before production
         require('./assets/images/classes/Zumba.png'),
+        require('./assets/images/workout.png'),
+        require('./assets/images/news.png'),
       ]),
       Font.loadAsync({
         'sofia-semi': require('./assets/fonts/SofiaPro-SemiBold.ttf'),
         'sofia-bold': require('./assets/fonts/SofiaPro-Bold.ttf'),
+        'sofia-black': require('./assets/fonts/SofiaPro-Black.ttf'),
         'poppins-semi': require('./assets/fonts/Poppins-SemiBold.otf'),
         'poppins-bold': require('./assets/fonts/Poppins-Bold.ttf'),
       }),
