@@ -10,7 +10,7 @@ export default class NewsItem extends React.Component {
   render() {
     return (
       <TouchableOpacity onPress={ () => this.props.navigation.navigate('ClassDetails', {name: this.props.title})}>
-        <View style={styles.classCard}>
+        <View style={styles.newsCard}>
           <Text style={[styles.classText, styles.classTime]}>{this.props.time}</Text>
           <Text style={[styles.classText, styles.className]}> {this.props.name}</Text>
         </View>
@@ -20,25 +20,24 @@ export default class NewsItem extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  classCard: {
+  newsCard: {
     marginLeft: 20,
     marginRight: 20,
-    marginBottom: 4,
-    height: 80,
-    backgroundColor: '#fdfdfd',
-    flexDirection: 'row',
-    alignItems: 'center',
+    borderRadius: 12,
+    height: 200,
+    backgroundColor: '#fcfcfc',
+    justifyContent: 'flex-end',
   },
-  classText: {
+  title: {
     color: '#333',
     fontFamily: 'sofia-semi',
     fontSize: 18,
     marginLeft: 20
   },
-  classTime: {
+  date: {
 
   },
-  className: {
+  desc: {
 
   }
 });
