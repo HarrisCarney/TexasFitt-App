@@ -7,10 +7,12 @@ import {
   Image
 } from 'react-native';
 
+import WorkoutDetails from '../screens/WorkoutDetailScreen';
+
 export default class DashItem extends React.Component {
   render() {
     return (
-      <TouchableOpacity style={styles.dashItem}>
+      <TouchableOpacity style={styles.dashItem} onPress={ () => this.props.navigation.navigate('WorkoutDetails', {}) }>
         <Image style={styles.dashImage} source={this.props.image} resizeMode="cover"/>
         <Text style={styles.title}>{this.props.title}</Text>
         <Text style={styles.subTitle}>{this.props.subTitle} </Text>

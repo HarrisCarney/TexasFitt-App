@@ -27,7 +27,8 @@ export default class NewsScreen extends React.Component {
         test.push({
             title: tom.data().title,
             info: tom.data().info,
-            date: tom.data().date_created
+            date: tom.data().date_created,
+            image: tom.data().image,
           });
       });
       this.setState({
@@ -39,27 +40,26 @@ export default class NewsScreen extends React.Component {
   componentDidMount() {
     this.getNews();
   }
-  
+
   render() {
     return (
       <View>
         <ScreenHeader>News</ScreenHeader>
         <ScrollView>
-      
+
           <ListView
             dataSource={this.state.newsList}
             renderRow={this.renderItem.bind(this)}
           />
- 
+
         </ScrollView>
       </View>
     );
   }
 
   renderItem(item) {
-    console.log(item)
     return (
-      <NewsItem navigation={this.props.navigation} time={item.title} name={item.info} id={item.date}/>
+      <NewsItem navigation={this.props.navigation} title={item.title} info={item.info} date={item.date} image={item.image}/>
     );
   }
 }

@@ -9,10 +9,14 @@ import DashScreen from '../screens/DashScreen';
 import ClassScreen from '../screens/ClassScreen';
 import ClassDetailScreen from '../screens/ClassDetailScreen';
 import NewsScreen from '../screens/NewsScreen';
+import NewsDetailScreen from '../screens/NewsDetailScreen';
+import WorkoutDetailScreen from '../screens/WorkoutDetailScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 
 const DashStack = createStackNavigator({
   Dash: DashScreen,
+  WorkoutDetails: WorkoutDetailScreen,
+  NewsDetails: NewsDetailScreen,
 });
 
 DashStack.navigationOptions = {
@@ -29,7 +33,7 @@ DashStack.navigationOptions = {
     }
   },
   tabBarIcon: ({ focused }) => (
-    focused ? <Image style={{ width: 26, height: 26 }} source={require('../assets/icons/ic_dash-active.png')}/> : 
+    focused ? <Image style={{ width: 26, height: 26 }} source={require('../assets/icons/ic_dash-active.png')}/> :
     <Image style={{ width: 26, height: 26 }} source={require('../assets/icons/ic_dash.png')}/>
   )
 };
@@ -53,13 +57,14 @@ ClassStack.navigationOptions = {
     }
   },
   tabBarIcon: ({ focused }) => (
-    focused ? <Image style={{ width: 26, height: 26 }} source={require('../assets/icons/ic_classes-active.png')}/> : 
+    focused ? <Image style={{ width: 26, height: 26 }} source={require('../assets/icons/ic_classes-active.png')}/> :
     <Image style={{ width: 26, height: 26 }} source={require('../assets/icons/ic_classes.png')}/>
   ),
 };
 
 const NewsStack = createStackNavigator({
   News: NewsScreen,
+  NewsDetails: NewsDetailScreen,
 });
 
 NewsStack.navigationOptions = {
@@ -76,7 +81,7 @@ NewsStack.navigationOptions = {
     }
   },
   tabBarIcon: ({ focused }) => (
-    focused ? <Image style={{ width: 26, height: 26 }} source={require('../assets/icons/ic_news-active.png')}/> : 
+    focused ? <Image style={{ width: 26, height: 26 }} source={require('../assets/icons/ic_news-active.png')}/> :
     <Image style={{ width: 26, height: 26 }} source={require('../assets/icons/ic_news.png')}/>
   ),
 };
@@ -99,14 +104,14 @@ ProfileStack.navigationOptions = {
     }
   },
   tabBarIcon: ({ focused }) => (
-    focused ? <Image style={{ width: 26, height: 26 }} source={require('../assets/icons/ic_profile-active.png')}/> : 
+    focused ? <Image style={{ width: 26, height: 26 }} source={require('../assets/icons/ic_profile-active.png')}/> :
     <Image style={{ width: 26, height: 26 }} source={require('../assets/icons/ic_profile.png')}/>
   ),
 };
 
 export default createBottomTabNavigator({
   DashStack,
-  ClassStack,  
+  ClassStack,
   NewsStack,
   ProfileStack,
 });

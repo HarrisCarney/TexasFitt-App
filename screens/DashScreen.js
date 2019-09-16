@@ -14,6 +14,7 @@ import * as firebase from 'firebase';
 
 import ScreenHeader from '../components/ScreenHeader';
 import DashItem from '../components/DashItem';
+import NewsItem from '../components/NewsItem';
 
 export default class DashScreen extends React.Component {
   static navigationOptions = {
@@ -38,7 +39,7 @@ export default class DashScreen extends React.Component {
         <View style={styles.userCard}>
           <Text style={styles.userName}>Good Morning,{"\n"}Harris</Text>
           <Image style={styles.profilePic} source={require('../assets/images/user.png')} />
-        </View>  
+        </View>
 
         <View style={styles.checkIn}>
           <Text style={styles.checkInTitle}>Weekly Check-Ins</Text>
@@ -46,7 +47,7 @@ export default class DashScreen extends React.Component {
         </View>
 
         <Text style={styles.itemTitle}>Workout of the Day</Text>
-        <DashItem title={"TODAY'S\nWORKOUT"} subTitle={"Full Body - Core Focused"} image={require('../assets/images/workout.png')}>
+        <DashItem navigation={this.props.navigation} title={"TODAY'S\nWORKOUT"} subTitle={"Full Body - Core Focused"} image={require('../assets/images/workout.png')}>
         </DashItem>
 
         <Text style={styles.itemTitle}>Latest News</Text>

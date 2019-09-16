@@ -63,7 +63,7 @@ export default class ClassScreen extends React.Component {
         </TouchableOpacity>
 
         <ScrollView>
-          <View style={styles.classInfo}> 
+          <View style={styles.classInfo}>
             <View style={styles.timeView}>
               <Text style={styles.time}>{this.state.time.includes('am') ? this.state.time.split('am')[0] : this.state.time.split('pm')[0]}</Text>
               <Text style={styles.timePeriod}>{this.state.time.includes('am') ? 'AM' : 'PM'}</Text>
