@@ -31,6 +31,7 @@ export default class DashScreen extends React.Component {
   componentDidMount() {
     const { currentUser } = firebase.auth();
     this.setState({ currentUser });
+    console.log(currentUser.displayName);
   }
 
   render() {

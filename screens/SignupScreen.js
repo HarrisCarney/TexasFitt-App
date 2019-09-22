@@ -10,8 +10,9 @@ export default class SignupScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '', 
-      password: '', 
+      email: '',
+      password: '',
+      displayName: 'Harris',
       errorMessage: null
     };
   };
@@ -20,7 +21,13 @@ export default class SignupScreen extends React.Component {
     firebase
       .auth()
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then(() => this.props.navigation.navigate('App'))
+      .then((user) => {
+        if(user) {
+          user.updateProfile({
+            displayName: this.state.displayName,
+          }).then(() => this.props.navigation.navigate('App'))
+        }
+      })
       .catch(error => this.setState({ errorMessage: error.message }))
   }
 
@@ -63,7 +70,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  
+
   textInput: {
     height: 40,
     width: '90%',
