@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, StyleSheet, ListView } from 'react-native';
+import { View, ScrollView, StyleSheet, FlatList } from 'react-native';
 import { firebaseDB } from '../api'
 
 import ScreenHeader from '../components/ScreenHeader';
@@ -12,11 +12,8 @@ export default class NewsScreen extends React.Component {
 
     constructor(props) {
     super(props);
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      newsList: new ListView.DataSource({
-        rowHasChanged: (row1, row2) => row1 !== row2,
-      }),
+      newsList: []
     };
   };
 
@@ -32,7 +29,7 @@ export default class NewsScreen extends React.Component {
           });
       });
       this.setState({
-          newsList: this.state.newsList.cloneWithRows(test),
+          newsList: test,
         });
     }.bind(this));
   }
@@ -47,9 +44,10 @@ export default class NewsScreen extends React.Component {
         <ScreenHeader>News</ScreenHeader>
         <ScrollView>
 
-          <ListView
-            dataSource={this.state.newsList}
-            renderRow={this.renderItem.bind(this)}
+          <FlatList
+            data={this.state.newsList}
+            renderItem={({ item }) => this.renderItem(item)}
+            keyExtractor={item => item.id}
           />
 
         </ScrollView>
@@ -59,7 +57,7 @@ export default class NewsScreen extends React.Component {
 
   renderItem(item) {
     return (
-      <NewsItem navigation={this.props.navigation} title={item.title} info={item.info} date={item.date} image={item.image}/>
+      <NewsItem key={item.id} navigation={this.props.navigation} title={item.title} info={item.info} date={item.date} image={item.image}/>
     );
   }
 }
